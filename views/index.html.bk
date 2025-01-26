@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html class="h-100">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>siteproxy</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
+  </head>
+  <body class="bg-dark d-flex flex-column h-100">
+    <header>
+      <nav class="navbar navbar-light bg-dark">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1 text-light">Siteproxy</span>
+        </div>
+      </nav>
+    </header>
+    
+      <div class="main flex-shrink-0">
+        <div class="container content-box">
+          <div class="alert alert-secondary" role="alert">
+            Yos
+          </div>
+          <section class="sousuo">
+            <div class="search">
+              <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary dropdown-toggle" id="search-engine-name" type="button" data-bs-toggle="dropdown" aria-expanded="false">github</button>
+                <ul class="dropdown-menu search-engine-list"></ul>
+                <input type="text" class="form-control" id="searchbox" placeholder="Search...">
+                <button class="btn btn-info" type="button" id="search-btn">Search</button>
+              </div>
+            </div>
+          </section>
+          <section class="item card-box" id="row-0">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="item-tit">
+                  <strong>Common websites</strong>
+                </div>
+                <div class="clearfix row two-list-box">
+                  <div class="col-md-3 col-sm-4 col-xs-6">
+                    <a href="/https/en.wikipedia.org" class="card-link" target="_blank">
+                      <div class="card-tit">Wikipedia</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    <footer class="mt-auto footer w-100 bg-secondary text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <p>
+              &copy2021 rod 
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+      <script>
+        // The content of the default search engine, if the interface is modified, it needs to be modified synchronously
+        var thisSearch = "/https/github.com/search?type=repositories&q=";
+
+        document.querySelector("#searchbox").addEventListener("keydown", event => {
+          // enter
+          if (event.keyCode == 13) {
+            window.open(thisSearch + document.querySelector("#searchbox").value, "_blank");
+            document.querySelector("#searchbox").innerHTML = "";
+          }
+        });
+        document.querySelector("#search-btn").addEventListener("click", event => {
+          var textValue = document.querySelector("#searchbox").value;
+          if (textValue != "") {
+            window.open(thisSearch + textValue, "_blank");
+          }
+        });
+        (function() {
+          // Search engine list, style five content per line, automatic line wrapping
+          var search = {
+            "GitHub": "/https/github.com/search?type=repositories&q=",
+          };
+          for (let name in search) {
+            var addList = `<li><a class="dropdown-item" href="#">${name}</a></li>`
+            document.querySelector(".search-engine-list").insertAdjacentHTML("beforeend", addList);
+          }
+          document.querySelectorAll(".search-engine-list li").forEach(item => {
+            item.addEventListener('click', event => {
+              var searchEngine = item.children[0].innerHTML;
+              var searchNameBtn = document.getElementById("search-engine-name");
+              searchNameBtn.innerHTML = searchEngine;
+              thisSearch = search[searchEngine];
+            })
+          })
+        })();
+      </script>
+  </body>
+</html>
